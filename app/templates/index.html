@@ -1,0 +1,72 @@
+<!-- node-project/app/template/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    </head>
+    <body>
+        <nav>
+            <div class="nav-wrapper cyan darken-3">
+                <a href="#!" class="brand-logo">
+                    <i class="material-icons prefix circle white-text">note</i> Notes
+                </a>
+            </div>
+        </nav>
+        <div class="container">
+            <!--  form section-->
+            <div class="row">
+                <form class="card" method="POST">
+                    <div class="card-content col-lg-8">
+                        {%csrf_token%}
+                        <div class="row">
+                            <i class="material-icons prefix">note</i>
+                            <div class="input-field col s12">
+                                <input id="title" type="text" class="validate" name="title">
+                                <label for="title">Title</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">mode_edit</i>
+                                    <textarea id="icon_prefix2" class="materialize-textarea" name="notes"></textarea>
+                                    <label for="icon_prefix2">Notes</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <!-- section to show all notes -->
+            <div class="row ">
+                {% for note in context %}
+                    <div class="col s6 ">
+                        <div class="card-panel ">
+                            <h6>
+                            <i class="material-icons prefix circle cyan-text">note</i>
+                            {{note.title}}
+                            </h6>
+                            <div class="card-content  blue-grey-text">
+                                {{note.notes}}
+                            </div>
+                            <span class="badge grey-text">
+                                {{note.date_modified|timesince}}
+                            </span>
+                        </div>
+                    </div>
+                {% endfor%}
+            </div>
+        </div>
+    </body>
+</html>
